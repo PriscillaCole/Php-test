@@ -22,16 +22,16 @@
                             <label for="milestones">Milestones:</label>
                             <ul id="milestonesList" class="list-unstyled">
                                 <li class="mb-2">
-                                    <input type="text" class="form-control" name="milestones[][milestone_name]" placeholder="Milestone Name" required>
-                                    <input type="text" class="form-control" name="milestones[][description]" placeholder="Description" required>
-                                    <select class="form-control" name="milestones[][status]" required>
+                                    <input type="text" class="form-control" name="milestones[0][milestone_name]" placeholder="Milestone Name" required>
+                                    <input type="text" class="form-control" name="milestones[0][description]" placeholder="Description" required>
+                                    <select class="form-control" name="milestones[0][status]" required>
                                         <option value="awaiting-start">Awaiting Start</option>
                                         <option value="in-progress">In Progress</option>
                                         <option value="on-hold">On Hold</option>
                                         <option value="completed">Completed</option>
                                     </select>
-                                    <input type="date" class="form-control" name="milestones[][start_date]" required>
-                                    <input type="date" class="form-control" name="milestones[][end_date]" required>
+                                    <input type="date" class="form-control" name="milestones[0][start_date]" required>
+                                    <input type="date" class="form-control" name="milestones[0][end_date]" required>
                                 </li>
                             </ul>
                             <button type="button" id="addMilestone" class="btn btn-secondary">Add Milestone</button>
@@ -58,27 +58,32 @@
                         </div>
                     </form>
 
-                    <!-- JavaScript to dynamically add milestones -->
-                    <script>
-                        document.getElementById('addMilestone').addEventListener('click', function () {
-                            const milestonesList = document.getElementById('milestonesList');
-                            const milestoneItem = document.createElement('li');
-                            milestoneItem.className = 'mb-2';
-                            milestoneItem.innerHTML = `
-                                <input type="text" class="form-control" name="milestones[][milestone_name]" placeholder="Milestone Name" required>
-                                <input type="text" class="form-control" name="milestones[][description]" placeholder="Description" required>
-                                <select class="form-control" name="milestones[][status]" required>
-                                    <option value="awaiting-start">Awaiting Start</option>
-                                    <option value="in-progress">In Progress</option>
-                                    <option value="on-hold">On Hold</option>
-                                    <option value="completed">Completed</option>
-                                </select>
-                                <input type="date" class="form-control" name="milestones[][start_date]" required>
-                                <input type="date" class="form-control" name="milestones[][end_date]" required>
-                            `;
-                            milestonesList.appendChild(milestoneItem);
-                        });
-                    </script>
+                 <!-- JavaScript to dynamically add milestones -->
+            <script>
+                let milestoneIndex = 1; // Initialize the milestone index
+
+                document.getElementById('addMilestone').addEventListener('click', function () {
+                    const milestonesList = document.getElementById('milestonesList');
+                    const milestoneItem = document.createElement('li');
+                    milestoneItem.className = 'mb-2';
+                    milestoneItem.innerHTML = `
+                        <input type="text" class="form-control" name="milestones[${milestoneIndex}][milestone_name]" placeholder="Milestone Name" required>
+                        <input type="text" class="form-control" name="milestones[${milestoneIndex}][description]" placeholder="Description" required>
+                        <select class="form-control" name="milestones[${milestoneIndex}][status]" required>
+                            <option value="awaiting-start">Awaiting Start</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="on-hold">On Hold</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <input type="date" class="form-control" name="milestones[${milestoneIndex}][start_date]" required>
+                        <input type="date" class="form-control" name="milestones[${milestoneIndex}][end_date]" required>
+                    `;
+                    milestonesList.appendChild(milestoneItem);
+
+                    milestoneIndex++; // Increment the milestone index for the next milestone
+                });
+            </script>
+
                             <!-- Include jQuery -->
                             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

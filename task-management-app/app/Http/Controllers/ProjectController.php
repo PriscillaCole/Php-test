@@ -12,15 +12,21 @@ class ProjectController extends Controller
 {
     public function store(Request $request)
     {
-        
+        //dd($request->all());
         // Validate the incoming data
         $validatedData = $request->validate([
             'project_name' => 'required|string|max:255',
             'description' => 'required|string',
-            'milestones' => 'required|array|min:1',   
+            'milestones' => 'required|array|min:1',
+            'milestones.*.milestone_name' => 'required|string|max:255',
+            'milestones.*.description' => 'required|string',
+            'milestones.*.status' => 'required|string',
+            'milestones.*.start_date' => 'required|date',
+            'milestones.*.end_date' => 'required|date',
             'developers' => 'required|array|min:1',
             'project_managers' => 'required|array|min:1',
         ]);
+        
      
 
         // Create the project
