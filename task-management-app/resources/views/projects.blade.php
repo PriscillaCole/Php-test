@@ -58,23 +58,33 @@
                                         <td>{{ $project->description }}</td>
                                         <td>
                                         <div class="dropdown">
-                                            
-                                        <button class="btn {{ $statusClass }} dropdown-toggle" type="button" id="statusDropdown{{ $project->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            {{ $project->status }}
-                                        </button>
+                                            @php
+                                                $statusClasses = [
+                                                    'In Progress' => 'btn-primary',
+                                                    'On Hold' => 'btn-warning',
+                                                    'Completed' => 'btn-success',
+                                                    'In Editing' => 'btn-secondary',
+                                                ];
 
-                                           
-                                        <div class="dropdown-menu" aria-labelledby="statusDropdown{{ $project->id }}">
-                                            <a class="dropdown-item" href="#" data-project-id="{{ $project->id }}" data-status="In Progress">In Progress</a>
-                                            <a class="dropdown-item" href="#" data-project-id="{{ $project->id }}" data-status="On Hold">On Hold</a>
-                                            <!-- check the user role -->
-                                            @if (Auth::user()->role_id == 2)
-                                            <a class="dropdown-item" href="#" data-project-id="{{ $project->id }}" data-status="Completed">Completed</a>
-                                            @endif
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" data-project-id="{{ $project->id }}" data-status="In Editing">In Editing</a>
+                                                $statusClass = $statusClasses[$project->status] ?? 'btn-secondary';
+                                                $isCompleted = $project->status === 'Completed';
+                                            @endphp
+
+                                            <button class="btn {{ $statusClass }} btn-sm dropdown-toggle" type="button" id="statusDropdown{{ $project->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @if ($isCompleted) disabled @endif>
+                                                {{ $project->status }}
+                                            </button>
+
+                                            <div class="dropdown-menu" aria-labelledby="statusDropdown{{ $project->id }}">
+                                                <a class="dropdown-item" href="#" data-project-id="{{ $project->id }}" data-status="In Progress">In Progress</a>
+                                                <a class="dropdown-item" href="#" data-project-id="{{ $project->id }}" data-status="On Hold">On Hold</a>
+                                                <!-- check the user role -->
+                                                @if (Auth::user()->role_id == 2)
+                                                <a class="dropdown-item" href="#" data-project-id="{{ $project->id }}" data-status="Completed">Completed</a>
+                                                @endif
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="#" data-project-id="{{ $project->id }}" data-status="In Editing">In Editing</a>
+                                            </div>
                                         </div>
-                                    </div>
                                         </td>
                                         <td>
                                             <a href="{{ route('edit', ['id' => $project->id]) }}" class="btn btn-primary btn-sm" title="Edit">
