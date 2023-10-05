@@ -23,3 +23,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //route to the project store method
 Route::post('/projects', [ProjectController::class, 'store'])->name('store');
+Route::get('/projects',[ProjectController::class, 'index'])->name('projects_table');
+Route::get('/projects/{id}', [ProjectController::class, 'show'])->name('show');
+Route::get('/projects/{id}/edit', [ProjectController::class, 'edit'])->name('edit');
+Route::put('/projects/{id}', [ProjectController::class, 'update'])->name('update');
+Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])->name('delete');

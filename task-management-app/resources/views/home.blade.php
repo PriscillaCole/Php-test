@@ -2,10 +2,28 @@
 
 @section('content')
 <div class="container">
+@if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{ session('error') }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @elseif (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('success') }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Create a New Project') }}</div>
+                
+            <div class="card-header">
+            <div class="card-header d-flex justify-content-between">
+                <div>{{ __('Create a New Project') }}</div>
+                <a href="{{ route('projects_table') }}" class="btn btn-primary btn-sm">{{ __('Project List') }}</a>
+            </div>
+
+
 
                 <div class="card-body">
                  <form id="projectForm" action="{{ route('store') }}" method="POST">
