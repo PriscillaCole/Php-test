@@ -143,5 +143,17 @@ class ProjectController extends Controller
         return response()->json(['message' => 'Project deleted successfully'], 200);
     }
 
+    //function to update status of the project
+    public function statusUpdate(Request $request)
+    {
+        
+        $id = $request->project_id;
+        $project = Project::findOrFail($id);
+        $project->update([
+            'status' => $request->status,
+        ]);
+        return response()->json(['message' => 'Project status updated successfully'], 200);
+    }
+
 }
 

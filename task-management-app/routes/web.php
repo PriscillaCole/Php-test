@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,3 +29,4 @@ Route::get('/projects/{id}', [ProjectController::class, 'show'])->name('show');
 Route::get('/projects/{id}/edit', [ProjectController::class, 'edit'])->name('edit');
 Route::put('/projects/{id}', [ProjectController::class, 'update'])->name('update');
 Route::delete('/projects/{id}', [ProjectController::class, 'destroy'])->name('delete');
+Route::post('/status', [ProjectController::class, 'statusUpdate'])->name('update_status');
